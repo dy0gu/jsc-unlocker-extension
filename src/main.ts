@@ -5,55 +5,53 @@ interface VirtualKeyButton extends HTMLElement {
 
 class VirtualKeyboardBypass {
     private virtualButtons: Map<string, VirtualKeyButton> = new Map();
+    private container: Document;
 
-    constructor() {
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("DOCUMENT LOADED - APPLYING VIRTUAL KEYBOARD BYPASS");
-            this.injectCSS(document);
-            this.mapVirtualKeyboard(document);
-            this.addFieldEventListeners(document);
-            // Watch for new iframe (login popup) to reapply bypass
-            const observer = new MutationObserver((mutations) => {
-                for (const mutation of mutations) {
-                    mutation.addedNodes.forEach(node => {
-                        if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "IFRAME") {
-                            const iframe = node as HTMLIFrameElement;
-                            iframe.addEventListener('load', () => {
-                                try {
-                                    const doc = iframe.contentDocument;
-                                    if (doc) {
-                                        console.log('IFRAME DETECTED - REAPPLYING VIRTUAL KEYBOARD BYPASS');
-                                        this.injectCSS(doc);
-                                        this.mapVirtualKeyboard(doc);
-                                        this.addFieldEventListeners(doc);
-                                    }
-                                } catch (e) {
-                                    console.warn('CANNOT ACCESS IFRAME CONTENT DUE TO CROSS-ORIGIN RESTRICTIONS');
+    constructor(container: Document) {
+        this.container = container;
+        this.injectCSS(this.container);
+        this.mapVirtualKeyboard(this.container);
+        this.addFieldEventListeners(this.container);
+        // Watch for new iframe (login popup) to reapply bypass
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === "IFRAME") {
+                        const iframe = node as HTMLIFrameElement;
+                        iframe.addEventListener('load', () => {
+                            try {
+                                const container = iframe.contentDocument;
+                                if (container) {
+                                    console.log('IFRAME DETECTED - REAPPLYING VIRTUAL KEYBOARD BYPASS');
+                                    // Create an instance of this class inside the iframe
+                                    new VirtualKeyboardBypass(container);
                                 }
-                            });
-                        }
-                    });
-                }
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
+                            } catch (e) {
+                                console.warn('CANNOT ACCESS IFRAME CONTENT DUE TO CROSS-ORIGIN RESTRICTIONS');
+                            }
+                        });
+                    }
+                });
+            }
         });
+        observer.observe(this.container.body, { childList: true, subtree: true });
     }
 
     private injectCSS(container: Document): void {
         const style = container.createElement("style");
         style.textContent = `
-        .blockKeyboard, .blockKeyboard * {
-            background-color: transparent !important;
-            background: none !important;
-            color: transparent !important;
-            border-color: transparent !important;
-            box-shadow: none !important;
-            text-shadow: none !important;
-            outline: none !important;
-            pointer-events: none !important;
-            user-select: none !important;
-        }
-        `;
+            .blockKeyboard, .blockKeyboard * {
+                background-color: transparent !important;
+                background: none !important;
+                color: transparent !important;
+                border-color: transparent !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                outline: none !important;
+                pointer-events: none !important;
+                user-select: none !important;
+            }
+            `;
         container.head.appendChild(style);
 
         const observer = new MutationObserver(() => {
@@ -105,12 +103,8 @@ class VirtualKeyboardBypass {
             fields.forEach(field => {
                 // Add typing possibility
                 field.readOnly = false;
-                // Add password manager support by restoring disabled autocomplete attributes and detecting paste
-                if (field.name === "newPass") {
-                    field.autocomplete = "new-password";
-                } else if (field.name === "confPass") {
-                    field.autocomplete = "new-password";
-                } else {
+                // Add password manager support by restoring autocomplete (only on login) and detecting paste
+                if (field.name === "password") {
                     field.autocomplete = "current-password";
                 }
 
@@ -164,4 +158,7 @@ class VirtualKeyboardBypass {
     }
 }
 
-const bypass = new VirtualKeyboardBypass();
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOCUMENT LOADED - APPLYING VIRTUAL KEYBOARD BYPASS");
+    new VirtualKeyboardBypass(document);
+});

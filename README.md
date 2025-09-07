@@ -1,8 +1,8 @@
-# Virtual Keyboard Bypass Extension
+# JSC Unlocker 🍀🔒
 
-This browser extension allows you to bypass the virtual keyboard login/register on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password fields editable and allowing password managers to autofill them. The virtual keyboard also becomes invisible.
+Removes the virtual keyboard login/register on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password fields editable and allowing password managers to autofill them. The virtual keyboard also becomes invisible.
 
-**BONUS: Copy paste also works when using this extension!**
+**BONUS: Copy & Paste also works when using this extension!**
 
 ## Download
 

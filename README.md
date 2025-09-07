@@ -1,30 +1,16 @@
 # Virtual Keyboard Bypass Extension
 
-This browser extension allows you to bypass the virtual keyboard login on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password field editable and allowing password managers to autofill.
+This browser extension allows you to bypass the virtual keyboard login/register on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password fields editable and allowing password managers to autofill them. The virtual keyboard also becomes invisible.
 
-## Features
+**BONUS: Copy paste also works when using this extension!**
 
-- Makes the password field editable
-- Hides the virtual keyboard
-- Works on Chrome and Firefox (Manifest V3)
-- Written in TypeScript
+## Download
 
-## Installation
+You can download the latest release for **Firefox** from the [Add-on Browser](https://addons.mozilla.org/en-US/firefox/addon/jsc-unlocker/) or for **Chrome** ~~from the [Chrome Web Store](https://chrome.google.com/webstore/detail/jsc-unlocker/).~~ SOON!
+
+## Manual Installation
 
 1. Clone or download this repository.
 2. Run `npm install` to install dependencies.
 3. Run `npm run build` to compile TypeScript.
-4. Load the extension in your browser:
-   - **Chrome**: Go to `chrome://extensions`, enable Developer mode, click "Load unpacked" and select the `dist` folder.
-   - **Firefox**: Go to `about:debugging`, click "This Firefox" > "Load Temporary Add-on" and select the `manifest.json` file from the `dist` folder.
-
-## Development
-
-- Source files are in `src/` (TypeScript).
-- Compiled files are in `dist/`.
-- Lint with `npm run lint`.
-- Package with `npm run zip`.
-
-## License
-
-MIT
+4. Load the generated zip file in `web-ext-artifacts/` into your browser as an unpacked extension.

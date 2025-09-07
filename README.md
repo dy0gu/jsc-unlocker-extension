@@ -1,12 +1,12 @@
 # JSC Unlocker 🍀🔒
 
-Removes the virtual keyboard login/register on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password fields editable and allowing password managers to autofill them. The virtual keyboard also becomes invisible.
+Removes the virtual keyboard login/register required [jogossantacasa.pt](https://www.jogossantacasa.pt/), making the password fields editable and allowing password managers to autofill them. The virtual keyboard also becomes invisible.
 
 **BONUS: Copy & Paste also works when using this extension!**
 
 ## Download
 
-You can download the latest release for **Firefox** from the [Add-on Browser](https://addons.mozilla.org/en-US/firefox/addon/jsc-unlocker/) or for **Chrome** ~~from the [Chrome Web Store](https://chrome.google.com/webstore/detail/jsc-unlocker/).~~ SOON!
+You can download the latest release for **Firefox** from the [Add-on Browser](https://addons.mozilla.org/en-US/firefox/addon/jsc-unlocker/) or for **Chrome** (~~from the [Chrome Web Store](https://chrome.google.com/webstore/detail/jsc-unlocker/)~~), soon!
 
 ## Build from Source
 

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "webpack --watch --progress --config webpack.config.ts",
+        "build": "tsc && web-ext build -o",
+        "check": "web-ext lint -w"
+    },
+    "devDependencies": {
+        "@types/node": "24.3.1",
+        "@types/webpack": "5.28.5",
+        "ts-loader": "9.5.4",
+        "ts-node": "10.9.2",
+        "typescript": "5.9.2",
+        "web-ext": "8.9.0",
+        "web-ext-plugin": "2.11.0",
+        "webpack": "5.101.3",
+        "webpack-cli": "6.0.1"
+    }
+}

@@ -1,0 +1,24 @@
+# IDE
+.idea/
+.vscode/
+xcuserdata/
+
+# Miscellaneous
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+web-ext-artifacts/
+
+# Environment
+*.env*
+*.pem*
+!.pem.example
+!.env.example
+
+# Logs
+**/logs/
+**/*.log

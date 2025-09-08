@@ -158,7 +158,5 @@ class VirtualKeyboardBypass {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOCUMENT LOADED - APPLYING VIRTUAL KEYBOARD BYPASS");
-    new VirtualKeyboardBypass(document);
-});
+console.log("INIT - APPLYING VIRTUAL KEYBOARD BYPASS");
+new VirtualKeyboardBypass(document);

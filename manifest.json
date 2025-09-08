@@ -24,7 +24,7 @@
             "js": [
                 "dist/main.js"
             ],
-            "run_at": "document_end"
+            "run_at": "document_idle"
         }
     ],
     "browser_specific_settings": {

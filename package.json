@@ -2,8 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "webpack --watch --progress --config webpack.config.ts",
-        "build": "tsc && web-ext build -o",
-        "check": "web-ext lint -w"
+        "build": "tsc && web-ext lint -w && web-ext build -o"
     },
     "devDependencies": {
         "@types/node": "24.3.1",

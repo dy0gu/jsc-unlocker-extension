@@ -8,10 +8,10 @@ xcuserdata/
 
 # Dependencies
 node_modules/
+.wxt/
 
 # Build
-dist/
-web-ext-artifacts/
+.output/
 
 # Environment
 *.env*

@@ -1,28 +1,3 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "ESNext",
-        "lib": [
-            "DOM",
-            "ES5"
-        ],
-        "outDir": "dist",
-        "rootDir": "src",
-        "strict": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true
-    },
-    "ts-node": {
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
-    },
-    "include": [
-        "src"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+	"extends": "./.wxt/tsconfig.json"
 }

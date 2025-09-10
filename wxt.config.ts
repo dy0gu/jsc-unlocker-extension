@@ -1,4 +1,5 @@
 import { defineConfig } from "wxt";
+import { version } from "./package.json";
 
 const url = "https://www.jogossantacasa.pt/";
 
@@ -6,7 +7,7 @@ const url = "https://www.jogossantacasa.pt/";
 export default defineConfig({
 	manifest: {
 		name: "JSC Unlocker",
-		version: "1.0.2",
+		version: version,
 		description: "Bypasses the forced virtual keyboard in the JSC website.",
 		permissions: [],
 		host_permissions: [url],

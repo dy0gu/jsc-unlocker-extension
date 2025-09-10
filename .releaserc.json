@@ -1,0 +1,48 @@
+{
+	"branches": ["main"],
+	"plugins": [
+		"@semantic-release/commit-analyzer",
+		"@semantic-release/release-notes-generator",
+		"@semantic-release/changelog",
+		[
+			"@semantic-release/npm",
+			{
+				"npmPublish": false
+			}
+		],
+		[
+			"@semantic-release/github",
+			{
+				"assets": [
+					{
+						"path": ".output/chrome-mv3-prod.zip",
+						"name": "jsc-unlocker-chrome-${nextRelease.version}.zip",
+						"label": "Chrome Extension"
+					},
+					{
+						"path": ".output/firefox-mv2-prod.zip",
+						"name": "jsc-unlocker-firefox-${nextRelease.version}.zip",
+						"label": "Firefox Extension"
+					},
+					{
+						"path": ".output/safari-mv2-prod.zip",
+						"name": "jsc-unlocker-safari-${nextRelease.version}.zip",
+						"label": "Safari Extension"
+					},
+					{
+						"path": ".output/firefox-mv2-prod-sources.zip",
+						"name": "jsc-unlocker-firefox-sources-${nextRelease.version}.zip",
+						"label": "Firefox Extension Sources"
+					}
+				]
+			}
+		],
+		[
+			"@semantic-release/git",
+			{
+				"assets": ["package.json", "CHANGELOG.md"],
+				"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+			}
+		]
+	]
+}

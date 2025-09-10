@@ -1,0 +1,71 @@
+name: "semantic / release"
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Firefox Extension
+        uses: actions/download-artifact@v4
+        with:
+          name: firefox-extension
+          path: .output/
+
+      - name: Download Chrome Extension
+        uses: actions/download-artifact@v4
+        with:
+          name: chrome-extension
+          path: .output/
+
+      - name: Download Safari Extension
+        uses: actions/download-artifact@v4
+        with:
+          name: safari-extension
+          path: .output/
+
+      - name: Download Firefox Sources
+        uses: actions/download-artifact@v4
+        with:
+          name: firefox-sources
+          path: .output/
+
+      - name: Verify artifacts
+        run: |
+          echo "Downloaded artifacts:"
+          ls -la .output/
+
+      - name: Release trigger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

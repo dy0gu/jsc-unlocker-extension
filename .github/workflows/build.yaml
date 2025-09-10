@@ -1,0 +1,99 @@
+name: "build"
+
+on:
+  workflow_call:
+    outputs:
+      firefox-zip:
+        description: "Path to Firefox extension zip file"
+        value: ${{ jobs.build.outputs.firefox-zip }}
+      chrome-zip:
+        description: "Path to Chrome extension zip file"
+        value: ${{ jobs.build.outputs.chrome-zip }}
+      safari-zip:
+        description: "Path to Safari extension zip file"
+        value: ${{ jobs.build.outputs.safari-zip }}
+      firefox-sources-zip:
+        description: "Path to Firefox sources zip file"
+        value: ${{ jobs.build.outputs.firefox-sources-zip }}
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      firefox-zip: ${{ steps.build-info.outputs.firefox-zip }}
+      chrome-zip: ${{ steps.build-info.outputs.chrome-zip }}
+      safari-zip: ${{ steps.build-info.outputs.safari-zip }}
+      firefox-sources-zip: ${{ steps.build-info.outputs.firefox-sources-zip }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Get build info
+        id: build-info
+        run: |
+          echo "firefox-zip=.output/firefox-mv2-prod.zip" >> $GITHUB_OUTPUT
+          echo "chrome-zip=.output/chrome-mv3-prod.zip" >> $GITHUB_OUTPUT
+          echo "safari-zip=.output/safari-mv2-prod.zip" >> $GITHUB_OUTPUT
+          echo "firefox-sources-zip=.output/firefox-mv2-prod-sources.zip" >> $GITHUB_OUTPUT
+
+      - name: Upload Firefox Extension
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-extension
+          path: .output/firefox-mv2-prod.zip
+          retention-days: 30
+
+      - name: Upload Chrome Extension
+        uses: actions/upload-artifact@v4
+        with:
+          name: chrome-extension
+          path: .output/chrome-mv3-prod.zip
+          retention-days: 30
+
+      - name: Upload Safari Extension
+        uses: actions/upload-artifact@v4
+        with:
+          name: safari-extension
+          path: .output/safari-mv2-prod.zip
+          retention-days: 30
+
+      - name: Upload Firefox Sources
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-sources
+          path: .output/firefox-mv2-prod-sources.zip
+          retention-days: 30
+
+      - name: List build outputs
+        run: |
+          echo "Built files:"
+          ls -la .output/
+          echo ""
+          echo "Available artifacts:"
+          echo "- Firefox Extension: firefox-mv2-prod.zip"
+          echo "- Chrome Extension: chrome-mv3-prod.zip"
+          echo "- Safari Extension: safari-mv2-prod.zip"
+          echo "- Firefox Sources: firefox-mv2-prod-sources.zip"

@@ -7,10 +7,14 @@ Removes the annoying (and arguably useless from a security standpoint) virtual k
 You can download the latest release for:
 
 - **Firefox** from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/jsc-unlocker/)
-- **Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
-- **Safari**, I won't be paying the 100$/year fee that Apple requires to publish on their store. **See the next section for instructions on how to build the extension yourself from the source code here.** Then lookup how to load a local extension into Safari.
+
+- **Safari**, I won't be paying the 100$ _per year_ fee that Apple requires to publish on their store. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Safari.
+
+- **Microsoft Edge**, the partner center page to become an extension publisher is currently broken, as is common in these sluggish Microsoft developer dashboards. I have tried opening a support ticket but I get sent to a useless AI system that repeats the same steps and won't let me speak to a human. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Edge.
+
 - **Opera** from [Opera Add-ons](https://addons.opera.com/en/extensions/details/jsc-unlocker/).
-- **Edge** from the [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/jsc-unlocker).
+
+- **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
 
 ## Development 🛠️
 
@@ -28,11 +32,11 @@ _With all requirements ready:_
     npm install
     ```
 
-- Continue to the next step if you want to alter the extension code. If you just want to build it run:
+- Continue to the next step if you want to alter the extension code. If you just want to build it, run the respective script:
 
     ```shell
     npm run build
-    # The output will be in the `.output` folder!
+    # The results will be in the `.output` folder!
     ```
 
 - To see live changes _(hot reload)_ when the extension code is updated, start a development session, which will automatically open a configured browser window. Refer to the `scripts` field in the `package.json` file for more details:
@@ -43,14 +47,14 @@ _With all requirements ready:_
     npm run dev:safari
     ```
 
-- Note that the **Chrome** version of the extension will also work in **Edge** and **Opera**, as these share the same browser engine, **Chromium**. This applies to any other _Chromium-based_ browser as well. Same goes for the **Firefox** version, which will also work in all _Firefox-based_ browsers.
+- Note that the **Google Chrome** version of the extension is the same one used for **Edge** and **Opera**, as these share the same browser engine, **Chromium**. This applies to any other _Chromium-based_ browser as well. Same goes for the **Firefox** version, which will also work in all _Firefox-based_ browsers.
 
-#### Tooling 🧰
+### Tooling 🧰
 
-- Biome is used as a linter and formatter:
+- Biome is used as a linter _and_ formatter:
 
     ```shell
-    npm run check
+    npm run lint
     ```
 
 - After running `npm install` pre-commit hooks will be automatically installed to format code before a commit. If for some reason the hooks do not install correctly, instal them manually using:
@@ -59,4 +63,4 @@ _With all requirements ready:_
     npx lefthook install
     ```
 
-- When using pre-commit hooks, git commands will fail if any files are checked with errors. Changed files must be added to the staged area and commited again to apply fixes
+- See also the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines if you plan on contributing to the project.

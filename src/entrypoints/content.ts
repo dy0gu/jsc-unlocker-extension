@@ -120,28 +120,10 @@ export default defineContentScript({
 					fields.forEach((field) => {
 						// Add typing possibility
 						field.readOnly = false;
-						// Add password manager support by restoring autocomplete (only on login) and detecting paste
+						// Add password manager support by restoring autocomplete (only on login)
 						if (field.name === "password") {
 							field.autocomplete = "current-password";
 						}
-
-						// Detect if input values changes but not from user, e.g password manager
-						field.addEventListener("input", (e) => {
-							const target = e.target as HTMLInputElement;
-							e.preventDefault();
-
-							const text = target.value;
-							target.value = "";
-							log.info(`HANDLING AUTO INPUT EVENT`);
-							this.simulateVirtualInput(text);
-						});
-						field.addEventListener("paste", (e) => {
-							e.preventDefault();
-							if (e.clipboardData == null) return;
-							const paste = e.clipboardData.getData("text");
-							log.info(`HANDLING PASTED TEXT`);
-							this.simulateVirtualInput(paste);
-						});
 						// When typing on input, press the equivalent virtual key
 						field.addEventListener("keydown", (e) => {
 							if (
@@ -163,6 +145,24 @@ export default defineContentScript({
 									clearButton.click();
 								}
 							}
+						});
+						// Detect if input values changes but not from user, e.g password manager
+						field.addEventListener("input", (e) => {
+							const target = e.target as HTMLInputElement;
+							e.preventDefault();
+
+							const text = target.value;
+							target.value = "";
+							log.info(`HANDLING AUTO INPUT EVENT`);
+							this.simulateVirtualInput(text);
+						});
+						// Handle pasting text into input
+						field.addEventListener("paste", (e) => {
+							e.preventDefault();
+							if (e.clipboardData == null) return;
+							const paste = e.clipboardData.getData("text");
+							log.info(`HANDLING PASTED TEXT`);
+							this.simulateVirtualInput(paste);
 						});
 					});
 				});

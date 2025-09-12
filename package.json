@@ -11,16 +11,17 @@
 		"dev:safari": "wxt -b safari",
 		"lint": "tsc --noEmit && biome check --fix",
 		"build": "wxt clean && wxt zip -b firefox --sources && wxt zip -b chrome && wxt zip -b safari",
-		"test": "playwright install chromium && playwright test"
+		"test": "playwright install chromium && playwright test",
+		"release:dry": "semantic-release -d -p @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.3",
-		"@playwright/test": "^1.55.0",
-		"@semantic-release/changelog": "^6.0.3",
-		"@semantic-release/git": "^10.0.1",
-		"@semantic-release/github": "^10.0.3",
+		"@playwright/test": "1.55.0",
+		"@semantic-release/changelog": "6.0.3",
+		"@semantic-release/git": "10.0.1",
+		"@semantic-release/github": "10.0.3",
 		"lefthook": "1.12.4",
-		"semantic-release": "^22.0.12",
+		"semantic-release": "22.0.12",
 		"typescript": "5.9.2",
 		"wxt": "0.20.11"
 	}

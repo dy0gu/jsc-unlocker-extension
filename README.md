@@ -10,13 +10,13 @@ You can download the latest release for:
 
 - **Firefox** from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/jsc-unlocker/)
 
-- **Safari**, I won't be paying the 100$ _per year_ fee that Apple requires to publish on their store. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Safari.
-
-- **Microsoft Edge**, the partner center page to become an extension publisher is currently broken, as is common in these sluggish Microsoft developer dashboards. I have tried opening a support ticket but I get sent to a useless AI system that repeats the same steps and won't let me speak to a human. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Edge.
+- **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
 
 - **Opera** from [Opera Add-ons](https://addons.opera.com/en/extensions/details/jsc-unlocker/).
 
-- **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
+- **Safari**, I won't be paying the 100$ _per year_ fee that Apple requires to publish on their store. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Safari.
+
+- **Microsoft Edge**, the partner center page to become an extension publisher is currently broken, as is common in these sluggish Microsoft developer dashboards. I have tried opening a support ticket but I get sent to a useless AI system that repeats the same steps and won't let me speak to a human. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Edge.
 
 ## Development 🛠️
 
@@ -41,7 +41,7 @@ _With all requirements ready:_
     # The results will be in the `.output` folder!
     ```
 
-- To see live changes _(hot reload)_ when the extension code is updated, start a development session, which will automatically open a configured browser window. Refer to the `scripts` field in the `package.json` file for more details:
+- To see live changes _(hot reload)_ when the extension code is updated, start a development session, which will automatically open a pre-configured window of your preferred browser. Refer to the `scripts` field in the `package.json` file for more details:
 
     ```shell
     npm run dev:chrome

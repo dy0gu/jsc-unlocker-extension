@@ -2,6 +2,8 @@
 
 Removes the annoying (and arguably useless from a security standpoint) virtual keyboard required for login/register on [jogossantacasa.pt](https://www.jogossantacasa.pt/), making password fields manually editable and allowing password managers to auto-fill them.
 
+Promotional video: <https://www.youtube.com/watch?v=uwbOnJTvUUI>
+
 ## Download 📂
 
 You can download the latest release for:

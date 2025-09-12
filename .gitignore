@@ -12,6 +12,7 @@ node_modules/
 
 # Test
 playwright-report/
+test-report/
 test-results/
 
 # Build

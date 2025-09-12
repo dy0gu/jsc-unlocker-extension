@@ -10,10 +10,12 @@
 		"dev:chrome": "wxt -b chrome",
 		"dev:safari": "wxt -b safari",
 		"lint": "tsc --noEmit && biome check --fix",
-		"build": "wxt zip -b firefox --sources && wxt zip -b chrome && wxt zip -b safari"
+		"build": "wxt clean && wxt zip -b firefox --sources && wxt zip -b chrome && wxt zip -b safari",
+		"test": "playwright install chromium && playwright test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.3",
+		"@playwright/test": "^1.55.0",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/git": "^10.0.1",
 		"@semantic-release/github": "^10.0.3",

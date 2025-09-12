@@ -1,3 +1,5 @@
+import { log } from "../helpers/logger";
+
 export default defineContentScript({
 	matches: ["https://www.jogossantacasa.pt/*"],
 	runAt: "document_end",
@@ -13,7 +15,7 @@ export default defineContentScript({
 
 			constructor(container: Document) {
 				this.container = container;
-				this.injectCSS(this.container);
+				this.injectStyling(this.container);
 				this.mapVirtualKeyboard(this.container);
 				this.addFieldEventListeners(this.container);
 				// Watch for new iframe (login popup) to reapply bypass
@@ -29,14 +31,14 @@ export default defineContentScript({
 									try {
 										const container = iframe.contentDocument;
 										if (container) {
-											console.log(
-												"IFRAME DETECTED - REAPPLYING VIRTUAL KEYBOARD BYPASS",
+											log.info(
+												"IFRAME DETECTED - STARTING VIRTUAL KEYBOARD BYPASS DETECTOR INSIDE",
 											);
 											// Create an instance of this class inside the iframe
 											new VirtualKeyboardBypass(container);
 										}
 									} catch (_e) {
-										console.warn(
+										log.warn(
 											"CANNOT ACCESS IFRAME CONTENT DUE TO CROSS-ORIGIN RESTRICTIONS",
 										);
 									}
@@ -51,34 +53,23 @@ export default defineContentScript({
 				});
 			}
 
-			private injectCSS(container: Document): void {
-				const style = container.createElement("style");
-				style.textContent = `
-            .blockKeyboard, .blockKeyboard * {
-                background-color: transparent !important;
-                background: none !important;
-                color: transparent !important;
-                border-color: transparent !important;
-                box-shadow: none !important;
-                text-shadow: none !important;
-                outline: none !important;
-                pointer-events: none !important;
-                user-select: none !important;
-            }
-            `;
-				container.head.appendChild(style);
+			private injectStyling(container: Document): void {
+				const keyboard = container.querySelector(".blockKeyboard");
+				if (keyboard) {
+					(keyboard as HTMLElement).style.visibility = "hidden";
+				}
 
 				const observer = new MutationObserver(() => {
-					container.querySelectorAll(".errorMsg").forEach((elem) => {
+					container.querySelectorAll(".errorMsg").forEach((msg) => {
 						if (
-							elem.textContent?.trim() ===
+							msg.textContent?.trim() ===
 								"Por favor utilize o teclado virtual." ||
-							elem.textContent?.trim() ===
+							msg.textContent?.trim() ===
 								"Clique em 'limpar' no teclado virtual"
 						) {
-							(elem as HTMLElement).style.color = "transparent";
+							(msg as HTMLElement).style.visibility = "hidden";
 						} else {
-							(elem as HTMLElement).style.color = "";
+							(msg as HTMLElement).style.visibility = "";
 						}
 					});
 				});
@@ -106,9 +97,11 @@ export default defineContentScript({
 					}
 				});
 
-				console.log(
-					`MAPPED ${this.virtualButtons.size} VIRTUAL KEYBOARD BUTTONS`,
-				);
+				if (this.virtualButtons.size === 0) {
+					log.warn("NO VIRTUAL KEYBOARD FOUND ON CURRENT PAGE");
+					return;
+				}
+				log.info(`MAPPED ${this.virtualButtons.size} VIRTUAL KEYBOARD BUTTONS`);
 			}
 
 			private addFieldEventListeners(container: Document): void {
@@ -139,14 +132,14 @@ export default defineContentScript({
 
 							const text = target.value;
 							target.value = "";
-							console.log(`HANDLING AUTO INPUT EVENT`);
+							log.info(`HANDLING AUTO INPUT EVENT`);
 							this.simulateVirtualInput(text);
 						});
 						field.addEventListener("paste", (e) => {
 							e.preventDefault();
 							if (e.clipboardData == null) return;
 							const paste = e.clipboardData.getData("text");
-							console.log(`HANDLING PASTED TEXT`);
+							log.info(`HANDLING PASTED TEXT`);
 							this.simulateVirtualInput(paste);
 						});
 						// When typing on input, press the equivalent virtual key
@@ -157,7 +150,7 @@ export default defineContentScript({
 							) {
 								return;
 							}
-							console.log(`KEY PRESSED`);
+							log.info(`KEY PRESSED: ${e.key}`);
 							if (this.virtualButtons.has(e.key)) {
 								e.preventDefault();
 								this.simulateVirtualInput(e.key);
@@ -177,7 +170,7 @@ export default defineContentScript({
 
 			private simulateVirtualInput(text: string): void {
 				for (const char of text) {
-					console.log(`VIRTUAL KEY CLICKED`);
+					log.info(`VIRTUAL KEY CLICKED: ${char}`);
 					const button = this.virtualButtons.get(char);
 					if (button) {
 						button.click();
@@ -186,7 +179,7 @@ export default defineContentScript({
 			}
 		}
 
-		console.log("INIT - APPLYING VIRTUAL KEYBOARD BYPASS");
+		log.info("STARTING VIRTUAL KEYBOARD BYPASS DETECTOR");
 		new VirtualKeyboardBypass(document);
 	},
 });

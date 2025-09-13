@@ -15,9 +15,9 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@cd2651c46231bc0d6f48d6b34433b845331235fe # v5.0.0
         with:
           node-version-file: "package.json"
           cache: "npm"
@@ -32,7 +32,7 @@ jobs:
         run: npm run test
 
       - name: Upload report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8 # v.4.6.2
         if: always()
         with:
           name: test-report

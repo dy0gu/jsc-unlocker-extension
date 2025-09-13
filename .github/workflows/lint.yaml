@@ -16,15 +16,15 @@ permissions:
   pull-requests: write
 
 jobs:
-  check:
+  source:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@cd2651c46231bc0d6f48d6b34433b845331235fe # v5.0.0
         with:
           node-version-file: "package.json"
           cache: "npm"

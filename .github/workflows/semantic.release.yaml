@@ -1,7 +1,6 @@
 name: "semantic / release"
 
 on:
-  workflow_dispatch:
   push:
     branches: [main]
 
@@ -19,26 +18,13 @@ jobs:
     uses: ./.github/workflows/lint.yaml
   test:
     uses: ./.github/workflows/test.yml
-  release:
+  please:
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Build and upload to stores still needs to be done manually for now
+      - uses: googleapis/release-please-action@1155c2c8dcbd6b15e85bae6bc6d1fed9552663cb # v4.2.0
+        id: release
         with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: "package.json"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build extension
-        run: npm run build
-
-      - name: Trigger release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+          config-file: release.json
+          manifest-file: .release-manifest.json

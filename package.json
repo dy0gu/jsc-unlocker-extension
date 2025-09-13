@@ -1,6 +1,5 @@
 {
-	"name": "jsc-unlocker",
-	"version": "1.0.2",
+	"version": "1.0.1",
 	"private": true,
 	"engines": {
 		"node": ">=22.0.0"
@@ -17,11 +16,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.4",
 		"@playwright/test": "1.55.0",
-		"@semantic-release/changelog": "6.0.3",
-		"@semantic-release/git": "10.0.1",
-		"@semantic-release/github": "11.0.6",
 		"lefthook": "1.13.0",
-		"semantic-release": "24.2.8",
 		"typescript": "5.9.2",
 		"wxt": "0.20.11"
 	}

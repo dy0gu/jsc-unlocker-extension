@@ -6,24 +6,9 @@
 		"@semantic-release/release-notes-generator",
 		"@semantic-release/changelog",
 		[
-			"semantic-release-replace-plugin",
+			"@semantic-release/npm",
 			{
-				"replacements": [
-					{
-						"files": ["package.json"],
-						"from": "\"version\": \".*\"",
-						"to": "\"version\": \"${nextRelease.version}\"",
-						"results": [
-							{
-								"file": "package.json",
-								"hasChanged": true,
-								"numMatches": 1,
-								"numReplacements": 1
-							}
-						],
-						"countMatches": true
-					}
-				]
+				"npmPublish": false
 			}
 		],
 		[

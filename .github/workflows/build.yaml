@@ -16,13 +16,11 @@ on:
         description: "Path to Firefox sources zip file"
         value: ${{ jobs.build.outputs.firefox-sources-zip }}
   workflow_dispatch:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: build-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:

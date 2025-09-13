@@ -11,8 +11,7 @@
 		"dev:safari": "wxt -b safari",
 		"lint": "tsc --noEmit && biome check --fix",
 		"build": "wxt clean && wxt zip -b firefox --sources && wxt zip -b chrome && wxt zip -b safari",
-		"test": "playwright install chromium && playwright test",
-		"release:dry": "semantic-release -d -p @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog"
+		"test": "playwright install chromium && playwright test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.3",

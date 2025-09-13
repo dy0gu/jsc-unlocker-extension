@@ -1,6 +1,7 @@
 name: "semantic / release"
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 
@@ -14,6 +15,10 @@ permissions:
   pull-requests: write
 
 jobs:
+  lint:
+    uses: ./.github/workflows/lint.yaml
+  test:
+    uses: ./.github/workflows/test.yml
   release:
     runs-on: ubuntu-latest
     steps:
@@ -30,11 +35,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - uses: ./.github/workflows/lint.yaml
-      - uses: ./.github/workflows/test.yml
-      - uses: ./.github/workflows/build.yaml
+      - name: Build extension
+        run: npm run build
 
-      # If all went well, set current main branch state to release
       - name: Trigger release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

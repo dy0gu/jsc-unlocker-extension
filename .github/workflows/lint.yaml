@@ -16,7 +16,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  release:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

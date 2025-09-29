@@ -32,7 +32,7 @@ jobs:
         run: npm run test
 
       - name: Upload report
-        uses: actions/upload-artifact@de65e23aa2b7e23d713bb51fbfcb6d502f8667d8 # v.4.6.2
+        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v.4.6.2
         if: always()
         with:
           name: test-report

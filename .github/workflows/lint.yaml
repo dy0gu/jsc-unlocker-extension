@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: actions/setup-node@cd2651c46231bc0d6f48d6b34433b845331235fe # v5.0.0
+      - uses: actions/setup-node@13427813f706a0f6c9b74603b31103c40ab1c35a # v5.0.0
         with:
           node-version-file: "package.json"
           cache: "npm"

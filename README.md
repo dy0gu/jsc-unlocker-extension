@@ -12,12 +12,6 @@ You can download the latest release for:
 
 - **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
 
-- **Opera** from [Opera Add-ons](https://addons.opera.com/en/extensions/details/jsc-unlocker/).
-
-- **Safari**, I won't be paying the 100$ _per year_ fee that Apple requires to publish on their store. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Safari.
-
-- **Microsoft Edge**, the partner center page to become an extension publisher is currently broken, as is common in these sluggish Microsoft developer dashboards. I have tried opening a support ticket but I get sent to a useless AI system that repeats the same steps and won't let me speak to a human. **See the next section for instructions on how to build the extension yourself from the source code here.** Then search for how to load a local extension into Edge.
-
 ## Development 🛠️
 
 ### Requirements 📋

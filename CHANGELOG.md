@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.1.0...v1.2.0) (2026-11-03)
+
+
+### Features
+
+* Add release immutability and improve release pipeline ([976be56](https://github.com/dy0gu/jsc-unlocker-extension/commit/976be56a5061732cfecc7dc214091ec4cdf80783))
+
 ## [1.1.0](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.0.1...v1.1.0) (2025-09-13)
 
 

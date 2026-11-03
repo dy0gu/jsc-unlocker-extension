@@ -32,4 +32,5 @@ jobs:
         with:
           name: extension
           path: .output/*.zip
+          include-hidden-files: true
           if-no-files-found: error

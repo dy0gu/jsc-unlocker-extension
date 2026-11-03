@@ -6,7 +6,8 @@ export const test = base.extend<{
   context: BrowserContext;
   id: string;
 }>({
-  context: async ({ javaScriptEnabled }, use) => {
+  // biome-ignore lint/correctness/noEmptyPattern: Playwright requires destructured fixture dependencies.
+  context: async ({}, use) => {
     const pathToExtension = path.join(__dirname, '..', '.output', 'chrome-mv3');
     const context = await chromium.launchPersistentContext('', {
       args: [
@@ -18,7 +19,7 @@ export const test = base.extend<{
       ],
       channel: 'chromium',
     });
-    javaScriptEnabled = true;
+
     await use(context);
     await context.close();
   },

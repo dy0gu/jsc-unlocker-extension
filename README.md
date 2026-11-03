@@ -12,7 +12,7 @@ You can download the latest release for:
 
 - **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
 
-- **Safari**: download the Safari ZIP from the [latest release](https://github.com/dy0gu/jsc-unlocker-extension/releases/latest).
+- **Safari**: from the [latest release](https://github.com/dy0gu/jsc-unlocker-extension/releases/latest).
 
 ## Release 🚀
 
@@ -56,5 +56,7 @@ _With all requirements ready:_
 - Biome is used as a linter _and_ formatter:
 
     ```shell
-    npm run lint
+    npm run check
+    # Apply automatic fixes:
+    npm run check:fix
     ```

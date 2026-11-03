@@ -41,10 +41,12 @@ jobs:
         with:
           name: extension
           path: .output
+      - name: Configure detailed submission errors
+        run: printf '%s\n' "require('node:util').inspect.defaultOptions.depth = null;" > /tmp/inspect-depth.cjs
       - name: Submit to Chrome Web Store
-
         run: npx wxt submit --chrome-zip .output/*-chrome.zip
         env:
+          NODE_OPTIONS: --require=/tmp/inspect-depth.cjs
           CHROME_EXTENSION_ID: ekeehglopcojnbieeopijckckabkpbfj
           CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
@@ -53,6 +55,7 @@ jobs:
 
         run: npx wxt submit --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip
         env:
+          NODE_OPTIONS: --require=/tmp/inspect-depth.cjs
           FIREFOX_EXTENSION_ID: jsc@dy0gu.com
           FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
           FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}

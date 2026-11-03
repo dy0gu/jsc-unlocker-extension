@@ -2,41 +2,25 @@ import { log } from '~/helpers/logger';
 
 export default defineContentScript({
   main: (_ctx) => {
-    interface VirtualKeyButton extends HTMLElement {
-      name?: string;
-      value?: string;
-    }
-
     class VirtualKeyboardBypass {
-      private virtualButtons: Map<string, VirtualKeyButton> = new Map();
-      private container: Document;
-
-      constructor(container: Document) {
-        this.container = container;
+      private virtualButtons: Map<string, HTMLInputElement> = new Map();
+      private observedIframes = new WeakSet<HTMLIFrameElement>();
+      private initializedDocuments = new WeakSet<Document>();
+      constructor(private readonly container: Document) {
         this.injectStyling(this.container);
         this.mapVirtualKeyboard(this.container);
         this.addFieldEventListeners(this.container);
-        // Watch for new iframe (login popup) to reapply bypass
         const observer = new MutationObserver((mutations) => {
           for (const mutation of mutations) {
             mutation.addedNodes.forEach((node) => {
-              if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === 'IFRAME') {
-                const iframe = node as HTMLIFrameElement;
-                iframe.addEventListener('load', () => {
-                  try {
-                    const container = iframe.contentDocument;
-                    if (container) {
-                      log.info(
-                        'IFRAME DETECTED - STARTING VIRTUAL KEYBOARD BYPASS DETECTOR INSIDE',
-                      );
-                      // Create an instance of this class inside the iframe
-                      new VirtualKeyboardBypass(container);
-                    }
-                  } catch (_e) {
-                    log.warn('CANNOT ACCESS IFRAME CONTENT DUE TO CROSS-ORIGIN RESTRICTIONS');
-                  }
-                });
+              if (node.nodeType !== Node.ELEMENT_NODE) return;
+              const element = node as Element;
+              if (element.tagName === 'IFRAME') {
+                this.observeIframe(element as HTMLIFrameElement);
               }
+              element.querySelectorAll('iframe').forEach((iframe) => {
+                this.observeIframe(iframe);
+              });
             });
           }
         });
@@ -44,6 +28,30 @@ export default defineContentScript({
           childList: true,
           subtree: true,
         });
+        this.container.querySelectorAll('iframe').forEach((iframe) => {
+          this.observeIframe(iframe);
+        });
+      }
+
+      private observeIframe(iframe: HTMLIFrameElement): void {
+        if (this.observedIframes.has(iframe)) return;
+        this.observedIframes.add(iframe);
+
+        const initialize = () => {
+          try {
+            const container = iframe.contentDocument;
+            if (container?.body && !this.initializedDocuments.has(container)) {
+              this.initializedDocuments.add(container);
+              log.info('IFRAME DETECTED - STARTING VIRTUAL KEYBOARD BYPASS DETECTOR INSIDE');
+              new VirtualKeyboardBypass(container);
+            }
+          } catch (_e) {
+            log.warn('CANNOT ACCESS IFRAME CONTENT DUE TO CROSS-ORIGIN RESTRICTIONS');
+          }
+        };
+
+        iframe.addEventListener('load', initialize);
+        if (iframe.contentDocument?.readyState === 'complete') initialize();
       }
 
       private injectStyling(container: Document): void {
@@ -54,9 +62,10 @@ export default defineContentScript({
 
         const observer = new MutationObserver(() => {
           container.querySelectorAll('.errorMsg').forEach((msg) => {
+            const text = msg.textContent?.trim();
             if (
-              msg.textContent?.trim() === 'Por favor utilize o teclado virtual.' ||
-              msg.textContent?.trim() === "Clique em 'limpar' no teclado virtual"
+              text === 'Por favor utilize o teclado virtual.' ||
+              text === "Clique em 'limpar' no teclado virtual"
             ) {
               (msg as HTMLElement).style.visibility = 'hidden';
             } else {
@@ -70,11 +79,10 @@ export default defineContentScript({
       private mapVirtualKeyboard(container: Document): void {
         this.virtualButtons.clear();
         const keyboardContainer = container.querySelector('.bgColorKeyboardBox');
-        const buttons = keyboardContainer
-          ? Array.from(keyboardContainer.querySelectorAll<VirtualKeyButton>("input[type='button']"))
-          : [];
+        const buttons =
+          keyboardContainer?.querySelectorAll<HTMLInputElement>("input[type='button']");
 
-        buttons.forEach((button) => {
+        buttons?.forEach((button) => {
           const name = button.getAttribute('name');
           const value = button.getAttribute('value');
           if (name && value) {
@@ -120,9 +128,8 @@ export default defineContentScript({
                 this.simulateVirtualInput(e.key);
               }
               if (e.key === 'Backspace') {
-                const clearButton = container.querySelector(
-                  "input[value='Limpar']",
-                ) as HTMLButtonElement;
+                const clearButton =
+                  container.querySelector<HTMLInputElement>("input[value='Limpar']");
                 if (clearButton) {
                   clearButton.click();
                 }

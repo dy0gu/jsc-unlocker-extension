@@ -9,7 +9,8 @@
 		"dev:firefox": "wxt -b firefox",
 		"dev:chrome": "wxt -b chrome",
 		"dev:safari": "wxt -b safari",
-		"lint": "tsc --noEmit && biome check --fix",
+		"check": "tsc --noEmit && biome check",
+		"check:fix": "tsc --noEmit && biome check --fix",
 		"build": "wxt clean && wxt zip -b firefox --sources && wxt zip -b chrome && wxt zip -b safari",
 		"test": "playwright install chromium && playwright test"
 	},

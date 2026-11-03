@@ -4,20 +4,24 @@ import { version } from './package.json';
 
 export const url = 'https://www.jogossantacasa.pt/';
 
+// biome-ignore-start lint/style/useNamingConvention: WebExtension manifest keys use snake_case.
 export const manifest = {
-  // biome-ignore lint/style/useNamingConvention: Firefox manifest keys use snake_case.
   browser_specific_settings: {
     gecko: {
+
+      data_collection_permissions: {
+        required: ['none'],
+      },
       id: 'jsc@dy0gu.com',
     },
   },
   description: 'Bypasses the forced virtual keyboard in the JSC website.',
-  // biome-ignore lint/style/useNamingConvention: WebExtension manifest keys use snake_case.
   host_permissions: [url],
   name: 'JSC Unlocker',
   permissions: [],
   version: version,
 };
+// biome-ignore-end lint/style/useNamingConvention: WebExtension manifest keys use snake_case.
 
 /**
  * @see https://wxt.dev/api/config.html

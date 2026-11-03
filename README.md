@@ -12,6 +12,12 @@ You can download the latest release for:
 
 - **Google Chrome** from the [Chrome Web Store](https://chromewebstore.google.com/detail/jsc-unlocked/ekeehglopcojnbieeopijckckabkpbfj).
 
+- **Safari**: download the Safari ZIP from the [latest release](https://github.com/dy0gu/jsc-unlocker-extension/releases/latest).
+
+## Release 🚀
+
+When a release is created, GitHub Actions builds the extension and automatically submits updates to Firefox Add-ons and the Chrome Web Store.
+
 ## Development 🛠️
 
 ### Requirements 📋

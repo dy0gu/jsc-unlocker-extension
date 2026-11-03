@@ -1,7 +1,7 @@
-name: "semantic / validation"
+name: convention
 
 on:
-  pull_request_target:
+  pull_request:
     branches: [main]
     types: [opened, edited, synchronize, reopened]
 
@@ -9,9 +9,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  # PRs should be written according to https://www.conventionalcommits.org/en/v1.0.0
-  pull-request-title:
+  title:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read

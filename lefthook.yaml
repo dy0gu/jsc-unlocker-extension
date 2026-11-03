@@ -1,7 +1,0 @@
-output: false
-
-pre-commit:
-  commands:
-    root:
-      run: npx biome format --fix
-      stage_fixed: true

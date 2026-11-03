@@ -52,11 +52,3 @@ _With all requirements ready:_
     ```shell
     npm run lint
     ```
-
-- After running `npm install` pre-commit hooks will be automatically installed to format code before a commit. If for some reason the hooks do not install correctly, instal them manually using:
-
-    ```shell
-    npx lefthook install
-    ```
-
-- See also the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines if you plan on contributing to the project.

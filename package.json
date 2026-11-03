@@ -14,10 +14,10 @@
 		"test": "playwright install chromium && playwright test"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.4",
-		"@playwright/test": "1.56.1",
-		"lefthook": "1.13.0",
-		"typescript": "5.9.2",
-		"wxt": "0.20.11"
+		"@biomejs/biome": "2.6.4",
+		"@playwright/test": "1.64.1",
+		"@types/node": "26.6.6",
+		"typescript": "7.0.2",
+		"wxt": "0.21.5"
 	}
 }

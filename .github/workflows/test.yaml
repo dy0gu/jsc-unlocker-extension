@@ -1,13 +1,15 @@
-name: test
+name: lint & test
 
 on:
-  workflow_call:
-  pull_request_target:
+  push:
     branches: [main]
-    types: [opened, synchronize]
+  pull_request:
+
+permissions:
+  contents: read
 
 concurrency:
-  group: test-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -16,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@cd2651c46231bc0d6f48d6b34433b845331235fe # v5.0.0
         with:
@@ -24,6 +28,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run lint
+        run: npm run lint
 
       - name: Build extension
         run: npm run build

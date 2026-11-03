@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.2.2...v1.2.3) (2026-11-03)
+
+
+### Bug Fixes
+
+* Improve iframe discovery ([e3ab9ca](https://github.com/dy0gu/jsc-unlocker-extension/commit/e3ab9caf142fdbcccdd610e947c6d35eb341f438))
+
 ## [1.2.2](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.2.1...v1.2.2) (2026-11-03)
 
 

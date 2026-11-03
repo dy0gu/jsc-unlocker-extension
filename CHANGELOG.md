@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.2.0...v1.2.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* Include release archives in build artifact ([b800a53](https://github.com/dy0gu/jsc-unlocker-extension/commit/b800a533ff0bba98f06bcaf07fef40f910df20dc))
+
 ## [1.2.0](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.1.0...v1.2.0) (2026-11-03)
 
 

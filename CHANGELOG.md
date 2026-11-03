@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.2.1...v1.2.2) (2026-11-03)
+
+
+### Bug Fixes
+
+* Add data collection permission property to firefox manifest ([5eda28b](https://github.com/dy0gu/jsc-unlocker-extension/commit/5eda28bd2832c2603e1597eaa40b4e8131230eac))
+
 ## [1.2.1](https://github.com/dy0gu/jsc-unlocker-extension/compare/v1.2.0...v1.2.1) (2026-11-03)
 
 
